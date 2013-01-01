@@ -1,0 +1,28 @@
+---
+- name: test when_changed
+  hosts: localhost
+
+  tasks:
+    - name: register a changed result
+      command: /bin/true
+      register: changed_res
+
+    - name: register an unchanged result
+      action: ping
+      register: unchanged_res
+
+    - name: when_changed $ changed_res
+      command: /bin/true
+      when_changed: $changed_res
+
+    - name: when_changed $ unchanged_res
+      command: /bin/true
+      when_changed: $unchanged_res
+
+    - name: when_changed $ unchanged_res and not $ changed_res
+      command: /bin/true
+      when_changed: $unchanged_res and not $changed_res
+
+    - name: when_changed $ unchanged_res or $ changed_res
+      command: /bin/true
+      when_changed: $unchanged_res or $changed_res

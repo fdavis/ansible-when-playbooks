@@ -1,0 +1,23 @@
+---
+- name: test when_unset
+  hosts: localhost
+
+  vars:
+    - set: a set var
+
+  tasks:
+    - name: when_unset $ unset
+      command: /bin/true
+      when_unset: $unset
+    
+    - name: when_unset $ set
+      command: /bin/true
+      when_unset: $set
+    
+    - name: when_unset $ set and not $ unset
+      command: /bin/true
+      when_unset: $set and not $unset
+    
+    - name: when_unset $ set or $ unset
+      command: /bin/true
+      when_unset: $set or $unset

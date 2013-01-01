@@ -1,0 +1,26 @@
+---
+- name: test when_failed
+  hosts: localhost
+
+  tasks:
+    - name: register a failure
+      command: /bin/false
+      ignore_errors: True
+      register: failed_res
+
+    - name: register a success on when_failed $ failed_res
+      command: /bin/true
+      when_failed: $failed_res
+      register: passed_res
+
+    - name: when_failed $ passed_res
+      command: /bin/true
+      when_failed: $passed_res
+
+    - name: when_failed $ passed_res and not $ failed_res
+      command: /bin/true
+      when_failed: $passed_res and not $failed_res
+
+    - name: when_failed $ passed_res or $ failed_res
+      command: /bin/true
+      when_failed: $passed_res or $failed_res
