@@ -21,3 +21,7 @@
     - name: when_set $ unset or $ set
       command: /bin/true
       when_set: $unset or $set
+    
+    - name: when_set and thing in list or otherthing in list
+      command: bin/true
+      when: "subs is defined and \"'thing' in list or 'otherthing' in list\""
